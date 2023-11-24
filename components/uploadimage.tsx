@@ -5,8 +5,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { saveAs } from "file-saver";
 import Confetti from 'react-confetti'
-import Jimp from "jimp";
-
 
 export default function UploadImage() {
     const [file, setFile] = useState<File>();
@@ -15,6 +13,7 @@ export default function UploadImage() {
     const [selectedFilter, setSelectedFilter] = useState<string>('')
     const [url, setURL] = useState<{ url: string }>()
     const { edgestore } = useEdgeStore();
+    const Jimp = require('jimp')
 
     const downloadImage = () => {
         let imageURL = url?.url;
