@@ -4,20 +4,21 @@ import { useEdgeStore } from "@/app/lib/edgestore";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { saveAs } from "file-saver";
-import Confetti from 'react-confetti'
+import Confetti from 'react-confetti';
+import Image from 'next/image'; // Import the next/image component
 
 export default function UploadImage() {
     const [file, setFile] = useState<File>();
-    const [error, setError] = useState("")
-    const [loading, isLoading] = useState(false)
-    const [selectedFilter, setSelectedFilter] = useState<string>('')
-    const [url, setURL] = useState<{ url: string }>()
+    const [error, setError] = useState("");
+    const [loading, isLoading] = useState(false);
+    const [selectedFilter, setSelectedFilter] = useState<string>('');
+    const [url, setURL] = useState<{ url: string }>();
     const { edgestore } = useEdgeStore();
-    const Jimp = require('jimp')
+    const Jimp = require('jimp');
 
     const downloadImage = () => {
         let imageURL = url?.url;
-        saveAs(`${imageURL}`, "FredFrameAgain - " + Date().slice(0, 15))
+        saveAs(`${imageURL}`, "FredFrameAgain - " + Date().slice(0, 15));
     }
 
     async function processImage() {
@@ -25,44 +26,38 @@ export default function UploadImage() {
             if (file) {
                 const buffer = Buffer.from(await file.arrayBuffer());
                 let processedImage = await Jimp.read(buffer);
-    
+
                 switch (selectedFilter) {
                     case 'actual-life':
                         processedImage = processedImage.color([
                             { apply: 'red', params: [185] },
+                            { apply: 'green', params: [-5] },
                             { apply: 'blue', params: [0] },
-                            { apply: 'green', params: [5] },
-                            { apply: 'lighten', params: [-15] },
-                        ])
-                        .resize(600, 600)
-                        .quality(100);
+                            { apply: 'lighten', params: [0] },
+                        ]).quality(70);
                         break;
                     case 'actual-life-2':
                         processedImage = processedImage.color([
-                            { apply: 'red', params: [300] },
-                            { apply: 'blue', params: [1] },
-                            { apply: 'green', params: [110] },
-                            { apply: 'lighten', params: [-25] },
-                        ])
-                        .resize(600, 600)
-                        .quality(100);
+                            { apply: 'red', params: [450] },
+                            { apply: 'green', params: [125] },
+                            { apply: 'blue', params: [0] },
+                            { apply: 'lighten', params: [-5] },
+                        ]).quality(70);
                         break;
                     case 'actual-life-3':
                         processedImage = processedImage.color([
                             { apply: 'red', params: [0] },
-                            { apply: 'blue', params: [400] },
                             { apply: 'green', params: [0] },
+                            { apply: 'blue', params: [400] },
                             { apply: 'lighten', params: [-30] },
-                        ])
-                        .resize(600, 600)
-                        .quality(100);
-                        
+                        ]).quality(70);
                         break;
                     default:
-                        isLoading(false)
-                        return setError('Error! Pick a filter');
+                        isLoading(false);
+                        setError('Error! Pick a filter');
+                        return null;
                 }
-    
+
                 return processedImage;
             }
         } catch (error) {
@@ -71,44 +66,35 @@ export default function UploadImage() {
         }
         return null;
     }
-    
+
     async function handleImageUpload() {
         if (file) {
-
             if (file.size > 1024 * 1024 * 2) {
                 setError('Allowed file size exceeded. File size should be 2MB or less.');
                 return;
             }
-            isLoading(true)
+            isLoading(true);
             const processedImage = await processImage();
-            
 
             if (!processedImage) {
                 setError('Error processing image. Please select a filter');
                 return;
             }
             try {
-                // Convert the processed image to a base64 string
-                const base64String = await processedImage.getBase64Async(Jimp.MIME_PNG);
-
-                // Convert the base64 string back to a Blob
+                const base64String = await processedImage.getBase64Async(Jimp.MIME_JPEG);
                 const blob = await fetch(base64String).then((final) => final.blob());
+                const modifiedFile = new File([blob], 'modified_image.png', { type: Jimp.MIME_JPEG });
 
-                // Create a new File from the Blob
-                const modifiedFile = new File([blob], 'modified_image.png', { type: Jimp.MIME_PNG });
-
-                // Upload the modified image to EdgeStore
                 const res = await edgestore.publicFiles.upload({
                     file: modifiedFile,
                     options: {
                         temporary: true,
                     },
                 });
-
                 setURL({
                     url: res.url,
                 });
-                isLoading(false)
+                isLoading(false);
                 setError('');
                 console.log(res);
             } catch (error) {
@@ -119,7 +105,6 @@ export default function UploadImage() {
         }
     }
 
-
     return (
         <div>
             <input
@@ -128,7 +113,7 @@ export default function UploadImage() {
                     setFile(e.target.files?.[0]);
                 }}
                 id='fileImage'
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, .heic"
             >
             </input>
             <select defaultValue={"choose-filter"} id="choose-filter" onChange={(e) => setSelectedFilter(e.target.value)}>
@@ -139,14 +124,14 @@ export default function UploadImage() {
             </select>
 
             <div className="flex items-center justify-center bg-black">
-                {url?.url && <img id={"placeholder"} src={url.url} alt="generated-image" width={470} height={470} />}
+                {url?.url && <Image id={"placeholder"} src={url.url} alt="generated-image" width={470} height={470} />}
             </div>
-            
+
             <p id="error">{error}</p>
             <ClipLoader
-            color="white"
-            loading={loading}
-            size={50}
+                color="white"
+                loading={loading}
+                size={60}
             />
 
             <div className="mx-9">
@@ -170,10 +155,6 @@ export default function UploadImage() {
                 <div>
                 </div>
             </div>
-
         </div>
-
-
-    )
+    );
 }
-

@@ -7,12 +7,20 @@ const nextConfig = {
                 fs: false
             }
         }
-
         return config;
-    }
+    },
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'files.edgestore.dev',
+          },
+        ],
+      },
   };
 
 
 
 
 module.exports = nextConfig
+
