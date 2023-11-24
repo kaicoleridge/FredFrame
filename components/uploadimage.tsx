@@ -33,7 +33,7 @@ export default function UploadImage() {
                             { apply: 'red', params: [185] },
                             { apply: 'green', params: [-5] },
                             { apply: 'blue', params: [0] },
-                            { apply: 'lighten', params: [0] },
+                            { apply: 'lighten', params: [-5] },
                         ]).quality(70);
                         break;
                     case 'actual-life-2':
