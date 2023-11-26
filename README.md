@@ -4,7 +4,8 @@
 # FredFrameAgain - Add Actual Life Filters to your images. 
 
 ##  Example Demo
-![fredframeagain-demo (1)](https://github.com/kaicoleridge/fredframeagain/assets/51129378/12de2d80-706e-40e4-b95e-cc7d8d171e96)
+![fredframeagain-demo (4)](https://github.com/kaicoleridge/fredframeagain/assets/51129378/7e95d890-d254-4c58-9a06-06349fd55ac0)
+
 
 ####  Try it out!
 > [FredFrameAgain](https://fredframeagain.vercel.app)
