@@ -16,6 +16,9 @@ export default function UploadImage() {
     const { edgestore } = useEdgeStore();
     const Jimp = require('jimp');
 
+    const sayings = ["Look at this masterpiece", "Master at work", "Style suits you", "I found you (your image)", "i adore ur image", "Let's (see that photo)", "killer in the jungle", "You (made the city)", "ten/ten.", "Dancing through the pixels", "Caught in the Fred Frame", "You made (the city)"]
+    const randEleemnt = sayings[Math.floor(Math.random()*sayings.length)]
+
     const downloadImage = () => {
         let imageURL = url?.url;
         saveAs(`${imageURL}`, "FredFrameAgain - " + Date().slice(0, 15));
@@ -144,7 +147,9 @@ export default function UploadImage() {
                 <option value={'actual-life-2'}>Actual Life 2</option>
                 <option value={'actual-life-3'}>Actual Life 3</option>
             </select>
-
+                <div>
+                    {url?.url && <h1>{randEleemnt}</h1>}
+                </div>
             <div className="flex items-center justify-center bg-black">
                 {url?.url && <Image id={"placeholder"} src={url.url} alt="generated-image" width={470} height={470} />}
             </div>

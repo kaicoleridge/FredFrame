@@ -25,6 +25,15 @@ body {
   overflow-x: hidden;
 }
 
+h1{
+  color: rgb(78, 94, 241);
+  font-weight: bolder;
+  letter-spacing: -0.2rem;
+  margin-top: 2rem;
+  font-size: 43px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .banner {
   background-color: rgb(14, 14, 16);
   color: white;
