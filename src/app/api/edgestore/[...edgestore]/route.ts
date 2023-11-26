@@ -8,10 +8,15 @@ const es = initEdgeStore.create();
  */
 const edgeStoreRouter = es.router({
   publicFiles: es.fileBucket({
-    accept: ['image/jpeg', 'image/png', '.heic'],
+    accept: ['image/jpeg', 'image/png', 'image/jpg'],
     maxSize: 1024 * 1024 * 2 //allow up to 2MB
+  })
+  .beforeDelete(({ ctx, fileInfo }) => {
+    console.log('beforeDelete', ctx, fileInfo);
+    return true; // allow delete
   }),
 });
+
  
 const handler = createEdgeStoreNextHandler({
   router: edgeStoreRouter,

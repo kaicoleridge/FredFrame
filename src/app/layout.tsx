@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'FredFrameAgain - Add Actual Life filters to images',
-  description: 'Turn your photos into an actual life cover.',
-  keywords: 'fred again, actual life, actual life generator, actual life filters, fred again actual life filter maker, Actual Life Filter Maker,',
+  description: 'Wondered how Fred Again makes those Actual Life Filters? Look no further! Turn your photos into an actual life cover.',
+  keywords: 'fred again, actual life, actual life generator, actual life filters, fred again actual life filter maker, Actual Life Filter Maker, fred again actual life generator, fred, fredagain',
 }
 
 export default function RootLayout({
@@ -22,6 +22,7 @@ export default function RootLayout({
       <link rel="icon" href="favicon.ico" sizes="any" />
       <meta name="theme-color" content="#0E0E10"></meta>
       <meta property="og:image" content="/fredframeagain-thumbnail.png" />
+      <meta property="twitter:image:alt" content="/fredframeagain-thumbnail.png" />
       <body>
       <EdgeStoreProvider>{children} <Analytics /></EdgeStoreProvider>
       </body>

@@ -5,7 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { saveAs } from "file-saver";
 import Confetti from 'react-confetti';
-import Image from 'next/image'; // Import the next/image component
+import Image from 'next/image';
 
 export default function UploadImage() {
     const [file, setFile] = useState<File>();
@@ -21,88 +21,110 @@ export default function UploadImage() {
         saveAs(`${imageURL}`, "FredFrameAgain - " + Date().slice(0, 15));
     }
 
+    const GDPRConfirm = () => {
+        return confirm("In alignment with the General Data Protection Regulation (GDPR) in the UK and EU, images submitted for use on FredFrameAgain undergo processing on a server. Uploaded images are immediately deleted from servers upon selecting 'Generate another image?' By default, images are removed 24 hours from the date and time of the upload.\n\nBy proceeding, you agree to these terms.");
+    }
+
     async function processImage() {
         try {
             if (file) {
                 const buffer = Buffer.from(await file.arrayBuffer());
                 let processedImage = await Jimp.read(buffer);
-
                 switch (selectedFilter) {
                     case 'actual-life':
                         processedImage = processedImage.color([
-                            { apply: 'red', params: [185] },
+                            { apply: 'red', params: [140] },
                             { apply: 'green', params: [-5] },
                             { apply: 'blue', params: [0] },
-                            { apply: 'lighten', params: [-5] },
-                        ]).quality(70);
-                        break;
+                            { apply: 'lighten', params: [-3] },
+                        ])
+                        break; 
+                
                     case 'actual-life-2':
                         processedImage = processedImage.color([
-                            { apply: 'red', params: [450] },
-                            { apply: 'green', params: [125] },
+                            { apply: 'red', params: [500] },
+                            { apply: 'green', params: [100] },
                             { apply: 'blue', params: [0] },
-                            { apply: 'lighten', params: [-5] },
-                        ]).quality(70);
-                        break;
+                            { apply: 'lighten', params: [-3] },
+                        ])
+                        break; 
+                
                     case 'actual-life-3':
                         processedImage = processedImage.color([
                             { apply: 'red', params: [0] },
                             { apply: 'green', params: [0] },
                             { apply: 'blue', params: [400] },
                             { apply: 'lighten', params: [-30] },
-                        ]).quality(70);
-                        break;
+                        ])
+                        break; 
+                
                     default:
                         isLoading(false);
                         setError('Error! Pick a filter');
                         return null;
                 }
 
+                processedImage = processedImage.quality(95)
+                
                 return processedImage;
             }
         } catch (error) {
             console.error('Error converting ArrayBuffer to Buffer:', error);
             return null;
         }
-        return null;
+
+
     }
 
     async function handleImageUpload() {
+        const alllowedAllocatedUpload = 1024 * 1024 * 2
+        setError('')
         if (file) {
-            if (file.size > 1024 * 1024 * 2) {
-                setError('Allowed file size exceeded. File size should be 2MB or less.');
-                return;
-            }
-            isLoading(true);
-            const processedImage = await processImage();
+            if (GDPRConfirm()) {
 
-            if (!processedImage) {
-                setError('Error processing image. Please select a filter');
-                return;
-            }
-            try {
-                const base64String = await processedImage.getBase64Async(Jimp.MIME_JPEG);
-                const blob = await fetch(base64String).then((final) => final.blob());
-                const modifiedFile = new File([blob], 'modified_image.png', { type: Jimp.MIME_JPEG });
+                if (file.size > alllowedAllocatedUpload) {
+                    setError('Allowed file size exceeded. File size should be 2MB or less.');
+                    return;
+                }
 
-                const res = await edgestore.publicFiles.upload({
-                    file: modifiedFile,
-                    options: {
-                        temporary: true,
-                    },
-                });
-                setURL({
-                    url: res.url,
-                });
-                isLoading(false);
-                setError('');
-                console.log(res);
-            } catch (error) {
-                setError('Error uploading file to server: ' + error);
+                isLoading(true);
+                const processedImage = await processImage();
+
+                if (!processedImage) {
+                    setError('Error processing image. Please select a filter');
+                    return;
+                }
+                
+                try {
+                    const buffer = await processedImage.getBufferAsync(Jimp.AUTO);
+                    const modifiedFile = new File([buffer], 'modified_image.jpeg', { type: 'image/jpeg' });                    
+
+                    const res = await edgestore.publicFiles.upload({
+                        file: modifiedFile,
+                        options: {
+                            temporary: true,
+                        },
+                    });
+
+                    setURL({
+                        url: res.url,
+                    });
+                    isLoading(false);
+                    setError('');
+                } catch (error) {
+                    setError('Error uploading file to server: ' + error);
+                }
             }
         } else {
             setError('No image found. Please upload either a JPEG or PNG file.');
         }
+    }
+
+
+    async function deleteImage() {
+        await edgestore.publicFiles.delete({
+            url: url!.url
+        })
     }
 
     return (
@@ -148,7 +170,7 @@ export default function UploadImage() {
             <div>
                 {!url?.url && <button type="submit" id="upld" onClick={handleImageUpload}>upload.</button>}
                 {url?.url && <a href="/">
-                    <button>
+                    <button onClick={deleteImage}>
                         Generate another image?
                     </button>
                 </a>}
