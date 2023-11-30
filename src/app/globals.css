@@ -25,7 +25,7 @@ body {
   overflow-x: hidden;
 }
 
-h1{
+#sayings{
   color: rgb(78, 94, 241);
   font-weight: bolder;
   letter-spacing: -0.2rem;

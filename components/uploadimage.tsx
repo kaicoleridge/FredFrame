@@ -6,6 +6,7 @@ import { useState } from "react";
 import { saveAs } from "file-saver";
 import Confetti from 'react-confetti';
 import Image from 'next/image';
+import Jimp from "jimp";
 
 export default function UploadImage() {
     const [file, setFile] = useState<File>();
@@ -14,10 +15,9 @@ export default function UploadImage() {
     const [selectedFilter, setSelectedFilter] = useState<string>('');
     const [url, setURL] = useState<{ url: string }>();
     const { edgestore } = useEdgeStore();
-    const Jimp = require('jimp');
 
-    const sayings = ["Look at this masterpiece", "Master at work", "Style suits you", "I found you (your image)", "i adore ur image", "Let's (see that photo)", "killer in the jungle", "You (made the city)", "ten/ten.", "Dancing through the pixels", "Caught in the Fred Frame", "You made (the city)"]
-    const randEleemnt = sayings[Math.floor(Math.random()*sayings.length)]
+    const sayings = ["Look at this masterpiece", "Master at work", "Style suits you", "I found (your image)", "i adore ur image", "Let's (see that photo)", "killer in the jungle", "You (made the city)", "ten out of ten.", "Dancing through the pixels", "Caught in the Fred Frame", "You made (the city)"]
+    const randSaying = sayings[Math.floor(Math.random()*sayings.length)]
 
     const downloadImage = () => {
         let imageURL = url?.url;
@@ -28,6 +28,8 @@ export default function UploadImage() {
         return confirm("In alignment with the General Data Protection Regulation (GDPR) in the UK and EU, images submitted for use on FredFrameAgain undergo processing on a server. Uploaded images are immediately deleted from servers upon selecting 'Generate another image?' By default, images are removed 24 hours from the date and time of the upload.\n\nBy proceeding, you agree to these terms.");
     }
 
+
+
     async function processImage() {
         try {
             if (file) {
@@ -37,18 +39,18 @@ export default function UploadImage() {
                     case 'actual-life':
                         processedImage = processedImage.color([
                             { apply: 'red', params: [140] },
-                            { apply: 'green', params: [-5] },
+                            { apply: 'green', params: [0] },
                             { apply: 'blue', params: [0] },
-                            { apply: 'lighten', params: [-3] },
+                            { apply: 'lighten', params: [-4] },
                         ])
                         break; 
                 
                     case 'actual-life-2':
                         processedImage = processedImage.color([
-                            { apply: 'red', params: [500] },
-                            { apply: 'green', params: [100] },
+                            { apply: 'red', params: [600] },
+                            { apply: 'green', params: [85] },
                             { apply: 'blue', params: [0] },
-                            { apply: 'lighten', params: [-3] },
+                            { apply: 'lighten', params: [-4] },
                         ])
                         break; 
                 
@@ -57,7 +59,7 @@ export default function UploadImage() {
                             { apply: 'red', params: [0] },
                             { apply: 'green', params: [0] },
                             { apply: 'blue', params: [400] },
-                            { apply: 'lighten', params: [-30] },
+                            { apply: 'lighten', params: [-10] },
                         ])
                         break; 
                 
@@ -67,7 +69,7 @@ export default function UploadImage() {
                         return null;
                 }
 
-                processedImage = processedImage.quality(95)
+                processedImage = processedImage.quality(100)
                 
                 return processedImage;
             }
@@ -99,8 +101,8 @@ export default function UploadImage() {
                 }
                 
                 try {
-                    const buffer = await processedImage.getBufferAsync(Jimp.AUTO);
-                    const modifiedFile = new File([buffer], 'modified_image.jpeg', { type: 'image/jpeg' });                    
+                    const buffer = await processedImage.getBufferAsync(Jimp.MIME_PNG);
+                    const modifiedFile = new File([buffer], 'fredagain.png', { type: 'image/png' });                    
 
                     const res = await edgestore.publicFiles.upload({
                         file: modifiedFile,
@@ -138,7 +140,7 @@ export default function UploadImage() {
                     setFile(e.target.files?.[0]);
                 }}
                 id='fileImage'
-                accept="image/png, image/jpeg, .heic"
+                accept="image/png, image/jpeg"
             >
             </input>
             <select defaultValue={"choose-filter"} id="choose-filter" onChange={(e) => setSelectedFilter(e.target.value)}>
@@ -148,7 +150,7 @@ export default function UploadImage() {
                 <option value={'actual-life-3'}>Actual Life 3</option>
             </select>
                 <div>
-                    {url?.url && <h1>{randEleemnt}</h1>}
+                    {url?.url && <p id="sayings">{randSaying}</p>}
                 </div>
             <div className="flex items-center justify-center bg-black">
                 {url?.url && <Image id={"placeholder"} src={url.url} alt="generated-image" width={470} height={470} />}

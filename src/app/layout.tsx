@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="favicon.ico" sizes="any" />
+      <meta name="google-site-verification" content="06jfqU81pZjNBJfu7vhC_W1Dj_6OLHqIPiyhhc32Lmk" />
       <meta name="theme-color" content="#0E0E10"></meta>
       <meta property="og:image" content="/fredframeagain-thumbnail.png" />
       <meta property="twitter:image:alt" content="/fredframeagain-thumbnail.png" />
