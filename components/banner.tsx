@@ -1,10 +1,9 @@
-import Link from "next/link"
 
 export default function Banner() {
     return(
         <>
         <div className="banner">
-        <Link href={"mailto:kai@coleridge.dev"}>spot any bugs? 🐛 <span>email me</span></Link>
+        <><b>🐛 Found a bug? </b><a href="mailto:kai@coleridge.dev">Submit here</a> </>
         </div>
         </>
     )
