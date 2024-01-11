@@ -17,7 +17,7 @@ export default function UploadImage() {
     const { edgestore } = useEdgeStore();
 
     const sayings = ["Look at this masterpiece", "Master at work", "Style suits you", "I found (your image)", "i adore ur image", "Let's (see that photo)", "killer in the jungle", "You (made the city)", "ten out of ten.", "Dancing through the pixels", "Caught in the Fred Frame", "You made (the city)"]
-    const randSaying = sayings[Math.floor(Math.random()*sayings.length)]
+    const randSaying = sayings[Math.floor(Math.random() * sayings.length)]
 
     const downloadImage = () => {
         let imageURL = url?.url;
@@ -28,8 +28,7 @@ export default function UploadImage() {
         return confirm("In alignment with the General Data Protection Regulation (GDPR) in the UK and EU, images submitted for use on FredFrameAgain undergo processing on a server. Uploaded images are immediately deleted from servers upon selecting 'Generate another image?' By default, images are removed 24 hours from the date and time of the upload.\n\nBy proceeding, you agree to these terms.");
     }
 
-
-
+      
     async function processImage() {
         try {
             if (file) {
@@ -43,8 +42,8 @@ export default function UploadImage() {
                             { apply: 'blue', params: [0] },
                             { apply: 'lighten', params: [-4] },
                         ])
-                        break; 
-                
+                        break;
+
                     case 'actual-life-2':
                         processedImage = processedImage.color([
                             { apply: 'red', params: [600] },
@@ -52,8 +51,8 @@ export default function UploadImage() {
                             { apply: 'blue', params: [0] },
                             { apply: 'lighten', params: [-4] },
                         ])
-                        break; 
-                
+                        break;
+
                     case 'actual-life-3':
                         processedImage = processedImage.color([
                             { apply: 'red', params: [0] },
@@ -61,8 +60,8 @@ export default function UploadImage() {
                             { apply: 'blue', params: [400] },
                             { apply: 'lighten', params: [-10] },
                         ])
-                        break; 
-                
+                        break;
+
                     default:
                         isLoading(false);
                         setError('Error! Pick a filter');
@@ -70,7 +69,7 @@ export default function UploadImage() {
                 }
 
                 processedImage = processedImage.quality(100)
-                
+
                 return processedImage;
             }
         } catch (error) {
@@ -85,24 +84,25 @@ export default function UploadImage() {
         const alllowedAllocatedUpload = 1024 * 1024 * 2
         setError('')
         if (file) {
-            if (GDPRConfirm()) {
+             {
 
                 if (file.size > alllowedAllocatedUpload) {
-                    setError('Allowed file size exceeded. File size should be 2MB or less.');
+                    setError('File is over 2MB. Upload should be 2MB or less.');
                     return;
                 }
+
 
                 isLoading(true);
                 const processedImage = await processImage();
 
                 if (!processedImage) {
-                    setError('Error processing image. Please select a filter');
+                    setError('Error processing image. Please select a filter.');
                     return;
                 }
-                
+
                 try {
                     const buffer = await processedImage.getBufferAsync(Jimp.MIME_PNG);
-                    const modifiedFile = new File([buffer], 'fredagain.png', { type: 'image/png' });                    
+                    const modifiedFile = new File([buffer], 'fredagain.png', { type: 'image/png' });
 
                     const res = await edgestore.publicFiles.upload({
                         file: modifiedFile,
@@ -125,13 +125,6 @@ export default function UploadImage() {
         }
     }
 
-
-    async function deleteImage() {
-        await edgestore.publicFiles.delete({
-            url: url!.url
-        })
-    }
-
     return (
         <div>
             <input
@@ -149,9 +142,9 @@ export default function UploadImage() {
                 <option value={'actual-life-2'}>Actual Life 2</option>
                 <option value={'actual-life-3'}>Actual Life 3</option>
             </select>
-                <div>
-                    {url?.url && <p id="sayings">{randSaying}</p>}
-                </div>
+            <div>
+                {url?.url && <p id="sayings">{randSaying}</p>}
+            </div>
             <div className="flex items-center justify-center bg-black">
                 {url?.url && <Image id={"placeholder"} src={url.url} alt="generated-image" width={470} height={470} />}
             </div>
@@ -177,9 +170,10 @@ export default function UploadImage() {
             <div>
                 {!url?.url && <button type="submit" id="upld" onClick={handleImageUpload}>upload.</button>}
                 {url?.url && <a href="/">
-                    <button onClick={deleteImage}>
+                    <button>
                         Generate another image?
                     </button>
+
                 </a>}
                 <div>
                 </div>
