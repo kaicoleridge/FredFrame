@@ -29,7 +29,7 @@ export default function Home() {
 
       <footer className='text-center justify-center text-white text-sm pb-10 '>
         <p className='pb-3'>
-          Made by <Link href="https://instagram.com/kaicoleridge" className='font-bold'>@kaicoleridge</Link> in the 🇬🇧
+          Made by <Link href="https://x.com/kaicoleridge" className='font-bold'>@kaicoleridge</Link> in the 🇬🇧
         </p>
         This app has <b>no affiliation </b>with <Link href="https://www.instagram.com/fredagainagainagainagainagain/?hl=en" className='font-bold'>Fred Again.</Link>
         <div className='flex items-center justify-center mt-5 px-5'>
