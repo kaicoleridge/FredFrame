@@ -16,7 +16,7 @@ export default function UploadImage() {
     const [url, setURL] = useState<{ url: string }>();
     const { edgestore } = useEdgeStore();
 
-    const sayings = ["Look at this masterpiece", "Master at work", "Style suits you", "I found (your image)", "i adore ur image", "Let's (see that photo)", "killer in the jungle", "You (made the city)", "ten out of ten.", "Dancing through the pixels", "Caught in the Fred Frame", "You made (the city)"]
+    const sayings = ["Look at this masterpiece", "Master at work", "Style suits you", "I found (your image)", "i adore ur image", "Let's (see that photo)", "killer in the jungle", "You (made the city)", "ten out of ten.", "Dancing through the pixels", "Caught in the Fred Frame", "You made (the city)", "Lil yachty would approve", "stayinit", "show this to everybody"]
     const randSaying = sayings[Math.floor(Math.random() * sayings.length)]
 
     const downloadImage = () => {
