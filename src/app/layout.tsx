@@ -23,6 +23,7 @@ export default function RootLayout({
       <meta name="google-site-verification" content="06jfqU81pZjNBJfu7vhC_W1Dj_6OLHqIPiyhhc32Lmk" />
       <meta name="theme-color" content="#0E0E10"></meta>
       <meta property="og:image" content="/fredframeagain-thumbnail.png" />
+      <meta property="og:site_name" content="FredFrameAgain" />
       <meta property="twitter:image:alt" content="/fredframeagain-thumbnail.png" />
       <body>
       <EdgeStoreProvider>{children} <Analytics /></EdgeStoreProvider>
