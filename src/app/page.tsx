@@ -1,12 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import UploadImage from '../../components/uploadimage'
-import Banner from '../../components/banner'
 
 export default function Home() {
   return (
     <>
-    <Banner/>
       <div className='h-64 flex items-center justify-center'>
         <Link href={"/"}>
         <Image
