@@ -24,12 +24,7 @@ export default function RootLayout({
       <meta name="theme-color" content="#1f0b88"/>
       <meta property="og:image" content="/thumbnail.png" />
       <meta property="og:site_name" content="FredFrameAgain" />
-<<<<<<< HEAD
-      <meta property="twitter:image:alt" content="/fredframeagain-thumbnail.png" />
-      <meta name="google-adsense-account" content="ca-pub-5819398709937724"/>
-=======
       <meta property="twitter:image:alt" content="/thumbnail.png" />
->>>>>>> 7040f42 (changed meta info)
       <body>
       <EdgeStoreProvider>{children} <Analytics /></EdgeStoreProvider>
       </body>
