@@ -81,13 +81,13 @@ export default function UploadImage() {
     }
 
     async function handleImageUpload() {
-        const alllowedAllocatedUpload = 1024 * 1024 * 2
+        const alllowedAllocatedUpload = 1024 * 1024 * 5
         setError('')
         if (file) {
              {
 
                 if (file.size > alllowedAllocatedUpload) {
-                    setError('File is over 2MB. Upload should be 2MB or less.');
+                    setError('File is over 5MB. Upload should be 5MB or less.');
                     return;
                 }
 

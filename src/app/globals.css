@@ -17,16 +17,12 @@
 }
 
 body {
-  background: rgb(6,8,17);
-  background: -moz-radial-gradient(circle, rgba(6,8,17,1) 0%, rgba(0,0,0,1) 100%);
-  background: -webkit-radial-gradient(circle, rgba(6,8,17,1) 0%, rgba(0,0,0,1) 100%);
-  background: radial-gradient(circle, rgba(6,8,17,1) 0%, rgba(0,0,0,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#060811",endColorstr="#000000",GradientType=1);
-  overflow-x: hidden;
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(31,11,136,1) 100%);
 }
 
 #sayings{
-  color: rgb(78, 94, 241);
+  color: rgb(255, 255, 255);
   font-weight: bolder;
   letter-spacing: -0.2rem;
   margin-top: 2rem;
@@ -35,12 +31,13 @@ body {
 }
 
 .banner {
-  background-color: rgb(14, 14, 16);
-  color: white;
+  background-color: rgb(156, 203, 253);
+  color: rgb(0, 0, 0);
   width: 100%;
-  font-weight: 500;
   padding: 0.5rem;
   text-align: center;
+  letter-spacing: -0.1rem;
+  font-size: 23px;
 }
 
 button {
@@ -48,10 +45,9 @@ button {
   padding: 1.2rem;
   margin-top: 1rem;
   color: white;
-  border: 0.3rem solid white;
   font-weight: bold;
   border-radius: 0.6rem;
-  font-size: 17px;
+  font-size: 20px;
 
 }
 
@@ -62,8 +58,8 @@ span{
 
 input[type='file'] {
   font-family: 'Helvetica', sans-serif;
-  background-color: rgb(14, 14, 16);
-  padding: 30px;
+  outline: auto;
+  padding: 25px;
   color: white;
   font-weight: bolder;
   border-radius: 0.7rem;
@@ -98,6 +94,7 @@ button:hover {
   border: none;
   margin-top: -5rem;
   margin-bottom: 2rem;
+  font-size: 17px;
 }
 
 #download:hover {
@@ -113,7 +110,7 @@ button:hover {
 }
 
 #placeholder {
-  background-color: rgb(14, 14, 16);
+outline: auto;
   border-radius: 1.5rem;
   margin: 2rem;
   padding: 1.5rem;

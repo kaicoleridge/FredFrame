@@ -1,17 +1,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import UploadImage from '../../components/uploadimage'
+import Banner from '../../components/banner'
 
 export default function Home() {
   return (
     <>
-      <div className='h-64 flex items-center justify-center'>
-        <Link href={"/"}>
-        <Image
+    <Banner/>
+      <div className='h-56 flex items-center justify-center'>
+      <Image
           src={"/logo.png"}
           width={350}
-          height={350} alt={'logo'} />
-          </Link>
+          height={350} alt={'logo.png'}
+          />
       </div>
 
       <div className='text-center'>
@@ -20,7 +21,7 @@ export default function Home() {
 
       <div className='flex justify-start w-82 mt-20 md:ml-10 mx-5 md:mt-2 pb-28'>
         <Image
-          src={"/example.png"}
+          src={"/example-2.png"}
           width={480}
           height={480} alt={'image of fred again actual life albums'} />
       </div>
