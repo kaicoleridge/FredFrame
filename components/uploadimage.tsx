@@ -160,7 +160,7 @@ export default function UploadImage() {
                 {url?.url && <Confetti
                     width={window.innerWidth}
                     height={window.innerHeight}
-                    numberOfPieces={5000}
+                    numberOfPieces={3000}
                     colors={['#FF8A00', '#D40414', '#1f1fc2']}
                     recycle={false}
                 ></Confetti>}
