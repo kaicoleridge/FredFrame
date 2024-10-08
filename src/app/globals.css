@@ -31,7 +31,7 @@ body {
 }
 
 .banner {
-  background-color: rgb(0, 0, 0);
+  border-bottom: 0.1rem solid;
   color: rgb(92, 185, 255);
   width: 100%;
   padding: 0.5rem;
