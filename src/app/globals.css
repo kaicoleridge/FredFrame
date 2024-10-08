@@ -81,10 +81,15 @@ select {
   appearance: none;
 }
 
-
-button:hover {
+#upld {
   background-color: white;
   color: black;
+}
+
+#upld:hover{
+  background-color: transparent;
+  color: white;
+  border: white solid 0.3rem;
   transition: ease-in-out 0.3s;
 }
 

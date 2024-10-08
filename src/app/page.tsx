@@ -10,8 +10,8 @@ export default function Home() {
       <div className='h-56 flex items-center justify-center'>
       <Image
           src={"/logo.png"}
-          width={350}
-          height={350} alt={'logo.png'}
+          width={400}
+          height={400} alt={'logo.png'}
           />
       </div>
 
