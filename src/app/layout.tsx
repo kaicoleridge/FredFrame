@@ -25,6 +25,7 @@ export default function RootLayout({
       <meta property="og:image" content="/fredframeagain-thumbnail.png" />
       <meta property="og:site_name" content="FredFrameAgain" />
       <meta property="twitter:image:alt" content="/fredframeagain-thumbnail.png" />
+      <meta name="google-adsense-account" content="ca-pub-5819398709937724">
       <body>
       <EdgeStoreProvider>{children} <Analytics /></EdgeStoreProvider>
       </body>
