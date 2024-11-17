@@ -28,10 +28,14 @@ export default function Home() {
         <p className='pb-3'>
           Made by <Link href="https://coleridge.dev" className='font-bold'>@kaicoleridge</Link> in the 🇬🇧
         </p>
-        This app has <b>no affiliation </b>with <Link href="https://www.instagram.com/fredagainagainagainagainagain/?hl=en" className='font-bold'>Fred Again.</Link>
-        <div className='flex items-center justify-center mt-5 px-5'>
+        <div className='flex items-center justify-center px-5'>
         </div>
-      
+       
+        <div className='space-x-6'>
+        <Link href={'/privacy'} className='text-gray-500 font-medium'>Privacy</Link>
+        <Link href={'https://buy.stripe.com/3cs4iTa1I7MOdeUcMO'} target='_blank' className='text-gray-500 font-medium'>Support me</Link>
+        </div>
+       
        </footer>
     </>
   )

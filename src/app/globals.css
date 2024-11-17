@@ -31,13 +31,13 @@ body {
 }
 
 .banner {
-  border-bottom: 0.1rem solid;
-  color: rgb(92, 185, 255);
+  border-bottom: 0.1rem solid  rgb(63, 164, 236);
+  color: rgb(63, 164, 236);
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.1rem;
   text-align: center;
   letter-spacing: -0.1rem;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 button {
@@ -115,8 +115,7 @@ select {
 }
 
 #placeholder {
-outline: auto;
-  border-radius: 1.5rem;
+  background-color: white;
   margin: 2rem;
   padding: 1.5rem;
 }
