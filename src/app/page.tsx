@@ -26,16 +26,10 @@ export default function Home() {
 
       <footer className='text-center justify-center text-white text-sm pb-10 '>
         <p className='pb-3'>
-          Made by <Link href="https://coleridge.dev" className='font-bold'>@kaicoleridge</Link> in the 🇬🇧
+          Made by <Link href="https://coleridge.dev" className='font-bold'>@kaicoleridge</Link> in the UK
         </p>
         <div className='flex items-center justify-center px-5'>
         </div>
-       
-        <div className='space-x-6'>
-        <Link href={'/privacy'} className='text-gray-500 font-medium'>Privacy</Link>
-        <Link href={'https://buy.stripe.com/3cs4iTa1I7MOdeUcMO'} target='_blank' className='text-gray-500 font-medium'>Support me</Link>
-        </div>
-       
        </footer>
     </>
   )
